@@ -6,98 +6,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}MyScheduleMaker{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+    <!-- Your existing styles -->
     <style>
-      .weekly-routine {
-        margin-top: 20px;
-      }
-      
-      .table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      
-      th, td {
-        border: 1px solid #ddd;
-        padding: 10px;
-        text-align: center;
-      }
-      
-      .task-cell {
-        position: relative;
-        cursor: pointer;
-      }
-      
-      .task {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 5px;
-        background-color: #3498db;
-        color: #fff;
-        border-radius: 5px;
-        display: none;
-      }
-      
-      .task-cell:hover .task {
-        display: block;
-      }
-      
-  </style>
+        .weekly-routine {
+            margin-top: 20px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .task-cell {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .task {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 5px;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .task-cell:hover .task {
+            display: block;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-100">
 
-<nav class="navbar is-light" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/">
-      <strong>MyScheduleMaker</strong>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+        <strong>MyScheduleMaker</strong>
     </a>
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarNav">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div id="navbarNav" class="navbar-menu">
-    <div class="navbar-end">
-      {% if user.is_authenticated %}
-        <a class="navbar-item" href="{% url 'task_list' %}">My Calendar</a>
-        <a class="navbar-item" href="{% url 'add_task' %}">Add Task</a>
-        <a class="navbar-item" href="{% url 'user_logout' %}">Logout</a>
-      {% else %}
-        <a class="navbar-item" href="{% url 'user_login' %}">Login</a>
-        <a class="navbar-item" href="{% url 'user_signup' %}">Sign Up</a>
-      {% endif %}
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'task_list' %}">My Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_task' %}">Add Task</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_logout' %}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_signup' %}">Sign Up</a>
+                </li>
+            {% endif %}
+        </ul>
     </div>
-  </div>
 </nav>
 
 <section class="section">
-  <div class="container">
-    {% block content %}{% endblock %}
-  </div>
+    <div class="container mx-auto">
+        {% block content %}{% endblock %}
+    </div>
 </section>
 
-<script defer src="https://cdn.jsdelivr.net/npm/bulma@0.9.3"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-    if ($navbarBurgers.length > 0) {
-      $navbarBurgers.forEach(function ($el) {
-        $el.addEventListener('click', function () {
-          const target = $el.dataset.target;
-          const $target = document.getElementById(target);
-          $el.classList.toggle('is-active');
-          $target.classList.toggle('is-active');
-        });
-      });
-    }
-  });
-</script>
+<!-- Bootstrap JS (make sure to include jQuery and Popper.js before this) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtvZegU4s/x8BfSzrKQZ5d5PcIj5tiSv9jKCOJv6uRfA1jwwJZ/Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 </html>

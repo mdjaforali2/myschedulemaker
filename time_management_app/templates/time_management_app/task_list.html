@@ -3,37 +3,39 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container mt-1">
+  <div class="container mt-3">
     <h2 class="display-5 text-center">Weekly Schedule</h2>
     <hr>
   </div>
   <div class="weekly-routine">
-    <table class="table is-bordered is-fullwidth is-hoverable">
-      <thead>
-        <tr>
-          <th></th> <!-- Empty cell for spacing -->
-          {% for formatted_day in formatted_days %}
-            <th>{{ formatted_day }}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for hour in hours %}
+    <div class="table-responsive"> <!-- Use Bootstrap's responsive class for tables -->
+      <table class="table is-bordered is-fullwidth is-hoverable">
+        <thead>
           <tr>
-            <td>{{ hour }}</td>
+            <th></th> <!-- Empty cell for spacing -->
             {% for formatted_day in formatted_days %}
-              <td>
-                {% for task in tasks %}
-                    {% if formatted_day == task.days_of_week and hour >= task.starting_time and hour < task.ending_time%}
-                        {{ task.task_name }}
-                    {% endif %}
-                {% endfor %}
-            </td>  
+              <th>{{ formatted_day }}</th>
             {% endfor %}
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for hour in hours %}
+            <tr>
+              <td>{{ hour }}</td>
+              {% for formatted_day in formatted_days %}
+                <td>
+                  {% for task in tasks %}
+                      {% if formatted_day == task.days_of_week and hour >= task.starting_time and hour < task.ending_time%}
+                          {{ task.task_name }}
+                      {% endif %}
+                  {% endfor %}
+                </td>  
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
   <hr>
   {% comment %}
