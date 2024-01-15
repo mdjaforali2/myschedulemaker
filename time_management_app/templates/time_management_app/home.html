@@ -1,0 +1,14 @@
+<!-- templates/time_management_app/home.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to Time Management</h1>
+    <p class="lead">Efficiently organize your tasks and manage your time effectively.</p>
+    <hr class="my-4">
+    <p>Get started by <a href="{% url 'user_signup' %}">signing up</a> or <a href="{% url 'user_login' %}">logging in</a>.</p>
+  </div>
+{% endblock %}

@@ -1,0 +1,103 @@
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MyScheduleMaker{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+      .weekly-routine {
+        margin-top: 20px;
+      }
+      
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      
+      th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: center;
+      }
+      
+      .task-cell {
+        position: relative;
+        cursor: pointer;
+      }
+      
+      .task {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 5px;
+        background-color: #3498db;
+        color: #fff;
+        border-radius: 5px;
+        display: none;
+      }
+      
+      .task-cell:hover .task {
+        display: block;
+      }
+      
+  </style>
+</head>
+<body>
+
+<nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <strong>MyScheduleMaker</strong>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarNav">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarNav" class="navbar-menu">
+    <div class="navbar-end">
+      {% if user.is_authenticated %}
+        <a class="navbar-item" href="{% url 'task_list' %}">My Calendar</a>
+        <a class="navbar-item" href="{% url 'add_task' %}">Add Task</a>
+        <a class="navbar-item" href="{% url 'user_logout' %}">Logout</a>
+      {% else %}
+        <a class="navbar-item" href="{% url 'user_login' %}">Login</a>
+        <a class="navbar-item" href="{% url 'user_signup' %}">Sign Up</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+</section>
+
+<script defer src="https://cdn.jsdelivr.net/npm/bulma@0.9.3"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach(function ($el) {
+        $el.addEventListener('click', function () {
+          const target = $el.dataset.target;
+          const $target = document.getElementById(target);
+          $el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

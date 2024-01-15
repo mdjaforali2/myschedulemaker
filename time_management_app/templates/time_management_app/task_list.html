@@ -1,0 +1,45 @@
+<!-- templates/time_management_app/task_list.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-1">
+    <h2 class="display-5 text-center">Weekly Schedule</h2>
+    <hr>
+  </div>
+  <div class="weekly-routine">
+    <table class="table is-bordered is-fullwidth is-hoverable">
+      <thead>
+        <tr>
+          <th></th> <!-- Empty cell for spacing -->
+          {% for formatted_day in formatted_days %}
+            <th>{{ formatted_day }}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for hour in hours %}
+          <tr>
+            <td>{{ hour }}</td>
+            {% for formatted_day in formatted_days %}
+              <td>
+                {% for task in tasks %}
+                    {% if formatted_day == task.days_of_week and hour >= task.starting_time and hour < task.ending_time%}
+                        {{ task.task_name }}
+                    {% endif %}
+                {% endfor %}
+            </td>  
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  {% comment %}
+  <div class="pagination-buttons">
+    <a href="{% url 'previous_week' %}" class="button is-info">Previous</a>
+    <a href="{% url 'next_week' %}" class="button is-info" style="float: right;">Next</a>
+  </div>
+  {% endcomment %}
+{% endblock %}

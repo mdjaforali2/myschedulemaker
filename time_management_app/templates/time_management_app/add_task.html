@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <div class="container mt-1">
+      <h2 class="display-5 text-center">Create Task</h2>
+      <hr>
+    </div>
+    <!-- Task Form -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+                
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Category:</label>
+                    {{ form.category }}
+                </div>
+
+                <!-- Task Name -->
+                <div class="form-group">
+                    <label for="{{ form.task_name.id_for_label }}">Task Name:</label>
+                    {{ form.task_name }}
+                </div>
+
+                <!-- Starting Time -->
+                <div class="form-group">
+                    <label for="{{ form.starting_time.id_for_label }}">Starting Time:</label>
+                    {{ form.starting_time }}
+                </div>
+
+                <!-- Ending Time -->
+                <div class="form-group">
+                    <label for="{{ form.ending_time.id_for_label }}">Ending Time:</label>
+                    {{ form.ending_time }}
+                </div>
+
+                <!-- Priority -->
+                <div class="form-group">
+                    <label for="{{ form.priority.id_for_label }}">Priority:</label>
+                    {{ form.priority }}
+                </div>
+
+                <!-- Status -->
+                <div class="form-group">
+                    <label for="{{ form.status.id_for_label }}">Status:</label>
+                    {{ form.status }}
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Description:</label>
+                    {{ form.description }}
+                </div>
+
+                <!-- Starting Date -->
+                <div class="form-group">
+                    <label for="{{ form.starting_date.id_for_label }}">Starting Date:</label>
+                    {{ form.starting_date }}
+                </div>
+
+                <!-- Ending Date -->
+                <div class="form-group">
+                    <label for="{{ form.ending_date.id_for_label }}">Ending Date:</label>
+                    {{ form.ending_date }}
+                </div>
+
+                <!-- Days of Week -->
+                <div class="form-group">
+                    <label for="{{ form.days_of_week.id_for_label }}">Days of Week:</label>
+                    {{ form.days_of_week }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Create Task</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
